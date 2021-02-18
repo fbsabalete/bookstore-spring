@@ -1,5 +1,6 @@
 package com.fernando.bookstore.service;
 
+import com.fernando.bookstore.model.Categoria;
 import com.fernando.bookstore.model.Livro;
 import com.fernando.bookstore.repositories.LivroRepository;
 import com.fernando.bookstore.service.exceptions.ObjectNotFoundException;
@@ -38,6 +39,19 @@ public class LivroService {
         newObj.setTitulo(obj.getTitulo());
         newObj.setNomeAutor(obj.getNomeAutor());
         newObj.setTexto(obj.getTexto());
+
+    }
+
+    public Livro create(Integer id_cat, Livro obj) {
+        obj.setId(null);
+        Categoria cat = categoriaService.findById(id_cat);
+        obj.setCategoria(cat);
+        return repository.save(obj);
+    }
+
+    public void delete(Integer id) {
+        Livro obj = findById(id);
+        repository.delete(obj);
 
     }
 }
